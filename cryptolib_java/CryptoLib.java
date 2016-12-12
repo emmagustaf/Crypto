@@ -45,14 +45,14 @@ public class CryptoLib {
 			result[2] = t0;
 			return result;
 	}
-	// helper function to calculate gcd
+	/*// helper function to calculate gcd
 	public static int gcd(int a, int b){
 		if(b==0){
 			return a;
 		}else{
 			return gcd(b, a%b);
 		}
-	}
+	}*/
 	/**
 	 * Returns Euler's Totient for value "n".
 	 **/
@@ -67,7 +67,7 @@ public class CryptoLib {
 		else {
 			for(int i=2; i<n; i++) {
 				if (gcd(n,i)==1) {//coprime
-				    count++;    			
+				    count++;
 				}
 			}
 		}
@@ -82,9 +82,9 @@ public class CryptoLib {
 		   for(int i=3; i*i<n; i++) {
               if(n%i == 0)
               	prime = false;
-		   } 
+		   }
 		}
-		return prime;     
+		return prime;
 	}
 
 	public static int gcd(int a, int b) {
@@ -106,13 +106,16 @@ public class CryptoLib {
 	 **/
 	public static int ModInv(int n, int m) {
 		for(int v = 0; v<m; v++){
-			if(((n*v)%m) == 1){
+			int tmp = (n*v)%m;
+			if(n<0){
+				tmp+=m;
+			}
+			if(tmp == 1){
 				return v;
 			}
 		}
 		return 0;
 	}
-
 	/**
 	 * Returns 0 if "n" is a Fermat Prime, otherwise it returns the lowest
 	 * Fermat Witness. Tests values from 2 (inclusive) to "n/3" (exclusive).
@@ -122,14 +125,14 @@ public class CryptoLib {
            if(remainder(i, n)!=1)
            	return i;//return the lowest fermit witness
 		}
-		return 0;//when remainder is 1 
+		return 0;//when remainder is 1
 	}
 
 	public static int remainder(int x, int y) {
 		int result = 1;
 		for(int i=0; i<y-1; i++) {//to find remainder of i^(n-1)
           result *= x;
-          if(result > y) 
+          if(result > y)
            result %= y;
 		}
 		return (result % y);
