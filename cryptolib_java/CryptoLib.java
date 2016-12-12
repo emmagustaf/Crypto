@@ -27,7 +27,47 @@ public class CryptoLib {
 	 * Returns Euler's Totient for value "n".
 	 **/
 	public static int EulerPhi(int n) {
-		return -1;
+		int count = 1;
+		if(n<=0)
+			count = 0;
+		if(n==1 || n==2)
+			count = 1;
+		if(isPrime(n) == true && n>0)
+			count = n-1;
+		else {
+			for(int i=2; i<n; i++) {
+				if (gcd(n,i)==1) {//coprime
+				    count++;    			
+				}
+			}
+		}
+		return count;
+	}
+
+	public static boolean isPrime(int n) {
+		boolean prime = true;
+		if(n%2 == 0)
+		   prime = false;
+	    else {
+		   for(int i=3; i*i<n; i++) {
+              if(n%i == 0)
+              	prime = false;
+		   } 
+		}
+		return prime;     
+	}
+
+	public static int gcd(int a, int b) {
+		int temp;
+        if(a<b) {
+           temp=a;
+           a=b;
+           b=temp;
+        }
+        if(a%b==0) {
+         return(b);
+        }
+        return(gcd(a%b,b));
 	}
 
 	/**
@@ -43,7 +83,21 @@ public class CryptoLib {
 	 * Fermat Witness. Tests values from 2 (inclusive) to "n/3" (exclusive).
 	 **/
 	public static int FermatPT(int n) {
-		return -1;
+		for(int i=1; i<n/3; i++) {
+           if(remainder(i, n)!=1)
+           	return i;//return the lowest fermit witness
+		}
+		return 0;//when remainder is 1 
+	}
+
+	public static int remainder(int x, int y) {
+		int result = 1;
+		for(int i=0; i<y-1; i++) {//to find remainder of i^(n-1)
+          result *= x;
+          if(result > y) 
+           result %= y;
+		}
+		return (result % y);
 	}
 
 	/**
