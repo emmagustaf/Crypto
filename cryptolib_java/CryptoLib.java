@@ -2,7 +2,6 @@
 //   javac CryptoLibTest.java
 // Running:
 //   java CryptoLibTest
-import java.lang.Math;
 public class CryptoLib {
 
 	/**
